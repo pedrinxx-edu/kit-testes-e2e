@@ -1,0 +1,16 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loja Exemplo - Entrar</title><link rel="stylesheet" href="estilo.css"></head>
+<body><header><strong>Loja Exemplo</strong><a href="cadastro.html">Criar conta</a></header>
+<main><div class="cartao"><h1>Entrar</h1>
+<form id="form-login"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username">
+<label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password">
+<button type="submit">Entrar</button><p id="mensagem" class="erro" role="alert"></p></form>
+<p>Conta de teste: <code>teste@exemplo.com</code> / <code>senha123</code></p></div></main>
+<script>
+document.getElementById('form-login').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var email = document.getElementById('email').value.trim(), senha = document.getElementById('senha').value;
+  var contas = JSON.parse(localStorage.getItem('contas') || '{"teste@exemplo.com":"senha123"}');
+  if (contas[email] && contas[email] === senha) { localStorage.setItem('logado', email); location.href = 'loja.html'; }
+  else { document.getElementById('mensagem').textContent = 'E-mail ou senha incorretos.'; }
+});
+</script></body></html>

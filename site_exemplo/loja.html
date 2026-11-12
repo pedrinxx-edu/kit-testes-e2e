@@ -1,0 +1,17 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loja Exemplo - Produtos</title><link rel="stylesheet" href="estilo.css"></head>
+<body><header><strong>Loja Exemplo</strong><a href="carrinho.html">Carrinho (<span id="qtd">0</span>)</a></header>
+<main><h1>Produtos</h1><div class="produtos" id="produtos"></div></main>
+<script>
+if (!localStorage.getItem('logado')) location.href = 'index.html';
+var produtos = [["Caderno", 25.9], ["Caneta azul", 4.5], ["Mochila", 129.0]];
+function carrinho() { return JSON.parse(localStorage.getItem('carrinho') || '[]'); }
+function atualizar() { document.getElementById('qtd').textContent = carrinho().length; }
+produtos.forEach(function (p) {
+  var d = document.createElement('div'); d.className = 'cartao produto';
+  d.innerHTML = '<div><h2>' + p[0] + '</h2><p>R$ ' + p[1].toFixed(2).replace('.', ',') + '</p></div>';
+  var b = document.createElement('button'); b.textContent = 'Adicionar ' + p[0];
+  b.onclick = function () { var c = carrinho(); c.push(p); localStorage.setItem('carrinho', JSON.stringify(c)); atualizar(); };
+  d.appendChild(b); document.getElementById('produtos').appendChild(d);
+});
+atualizar();
+</script></body></html>

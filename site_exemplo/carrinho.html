@@ -1,0 +1,13 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loja Exemplo - Carrinho</title><link rel="stylesheet" href="estilo.css"></head>
+<body><header><strong>Loja Exemplo</strong><a href="loja.html">Continuar comprando</a></header>
+<main><div class="cartao"><h1>Carrinho</h1><ul id="itens"></ul><p>Total: <strong id="total">R$ 0,00</strong></p>
+<button id="finalizar">Finalizar compra</button><p id="mensagem" class="erro" role="alert"></p></div></main>
+<script>
+var c = JSON.parse(localStorage.getItem('carrinho') || '[]'), total = 0;
+c.forEach(function (p) { var li = document.createElement('li'); li.textContent = p[0]; document.getElementById('itens').appendChild(li); total += p[1]; });
+document.getElementById('total').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+document.getElementById('finalizar').onclick = function () {
+  if (!c.length) { document.getElementById('mensagem').textContent = 'Seu carrinho está vazio.'; return; }
+  localStorage.setItem('carrinho', '[]'); location.href = 'obrigado.html';
+};
+</script></body></html>

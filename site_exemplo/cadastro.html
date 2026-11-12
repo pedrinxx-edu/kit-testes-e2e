@@ -1,0 +1,18 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loja Exemplo - Criar conta</title><link rel="stylesheet" href="estilo.css"></head>
+<body><header><strong>Loja Exemplo</strong><a href="index.html">Entrar</a></header>
+<main><div class="cartao"><h1>Criar conta</h1>
+<form id="form-cadastro"><label for="nome">Nome</label><input id="nome" type="text">
+<label for="email">E-mail</label><input id="email" type="email"><label for="senha">Senha</label><input id="senha" type="password">
+<button type="submit">Criar conta</button><p id="mensagem" role="alert"></p></form></div></main>
+<script>
+document.getElementById('form-cadastro').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var nome = document.getElementById('nome').value.trim(), email = document.getElementById('email').value.trim(), senha = document.getElementById('senha').value;
+  var msg = document.getElementById('mensagem');
+  if (!nome || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.className = 'erro'; msg.textContent = 'Preencha o nome e um e-mail válido.'; return; }
+  if (senha.length < 6) { msg.className = 'erro'; msg.textContent = 'A senha precisa ter pelo menos 6 caracteres.'; return; }
+  var contas = JSON.parse(localStorage.getItem('contas') || '{"teste@exemplo.com":"senha123"}');
+  contas[email] = senha; localStorage.setItem('contas', JSON.stringify(contas));
+  msg.className = 'ok'; msg.textContent = 'Conta criada! Agora é só entrar.';
+});
+</script></body></html>
